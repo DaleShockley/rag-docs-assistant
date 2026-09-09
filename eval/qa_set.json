@@ -1,0 +1,21 @@
+[
+  {"question": "How do I run the FastAPI development server from the command line?", "expected_doc": "first-steps.md"},
+  {"question": "What does the interactive API documentation at /docs use under the hood?", "expected_doc": "first-steps.md"},
+  {"question": "What class does the FastAPI class inherit from?", "expected_doc": "first-steps.md"},
+
+  {"question": "How does FastAPI validate that a path parameter is an integer?", "expected_doc": "path-params.md"},
+  {"question": "Why does the order of routes matter when one route is a fixed path like /users/me?", "expected_doc": "path-params.md"},
+  {"question": "How can I restrict a path parameter to a predefined set of values?", "expected_doc": "path-params.md"},
+
+  {"question": "What values are accepted as truthy when declaring a bool query parameter?", "expected_doc": "query-params.md"},
+  {"question": "How do I make a query parameter optional with a default value of None?", "expected_doc": "query-params.md"},
+  {"question": "How do I make a query parameter required instead of optional?", "expected_doc": "query-params.md"},
+
+  {"question": "What do I need to import to declare a request body model?", "expected_doc": "body.md"},
+  {"question": "Can I combine a request body with path and query parameters in the same endpoint?", "expected_doc": "body.md"},
+  {"question": "What HTTP methods are recommended for sending a request body?", "expected_doc": "body.md"},
+
+  {"question": "What exception do I raise to return a 404 error from an endpoint?", "expected_doc": "handling-errors.md"},
+  {"question": "What's the difference between FastAPI's HTTPException and Starlette's HTTPException?", "expected_doc": "handling-errors.md"},
+  {"question": "Why should I be careful about returning the raw RequestValidationError body to the client?", "expected_doc": "handling-errors.md"}
+]
