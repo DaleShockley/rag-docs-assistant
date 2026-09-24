@@ -20,7 +20,9 @@ Rules:
 """
 
 
-def answer_question(question: str, store: VectorStore, n_results: int = 5) -> dict:
+def answer_question(
+    question: str, store: VectorStore, n_results: int = 5, model: str = MODEL
+) -> dict:
     """Retrieves relevant chunks and asks Claude to answer, grounded and cited."""
     hits = store.query(question, n_results=n_results)
 
@@ -33,7 +35,7 @@ def answer_question(question: str, store: VectorStore, n_results: int = 5) -> di
 
     client = anthropic.Anthropic()
     response = client.messages.create(
-        model=MODEL,
+        model=model,
         max_tokens=1024,
         system=SYSTEM_PROMPT,
         messages=[
