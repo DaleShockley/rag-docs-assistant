@@ -39,18 +39,36 @@ The takeaway isn't "fixed-size chunking is better" as a general rule, it's that 
 
 ## Sample Q&A
 
-_(Illustrative — run `python -m src.rag header "How do I make a query parameter required?"` with your own `ANTHROPIC_API_KEY` to get a real captured exchange to drop in here.)_
+Real captured output from `python -m src.rag header "How do I make a query parameter required?"` (header-aware chunking, `claude-sonnet-4-5`):
 
-```
+````
 > How do I make a query parameter required?
 
-To make a query parameter required in FastAPI, simply don't declare a
-default value for it. If you want it to be optional, set the default
-to None; if you want a specific default, provide one. Leaving off the
-default entirely makes the parameter required.
+To make a query parameter required, simply **don't declare any default value** for it.
+
+For example, if you have a parameter like `needy: str` without assigning it a default
+value (no `= None` or `= some_value`), it will be required.
+
+If a client doesn't provide the required parameter, they will receive an error response like:
+
+```JSON
+{
+  "detail": [
+    {
+      "type": "missing",
+      "loc": ["query", "needy"],
+      "msg": "Field required",
+      "input": null
+    }
+  ]
+}
+```
+
+This is in contrast to optional parameters (which should have `default = None`) or
+parameters with default values (like `skip = 0`).
 
 Sources: query-params.md
-```
+````
 
 ## Project structure
 

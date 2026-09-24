@@ -3,8 +3,11 @@ grounded in them, with citations back to the source doc.
 """
 
 import anthropic
+from dotenv import load_dotenv
 
 from src.vector_store import VectorStore
+
+load_dotenv()  # picks up ANTHROPIC_API_KEY from a local .env file, if present
 
 MODEL = "claude-sonnet-4-5"  # swap for whatever model your key has access to
 
