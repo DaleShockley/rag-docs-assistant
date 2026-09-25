@@ -11,7 +11,9 @@ from src.vector_store import VectorStore
 
 load_dotenv()  # picks up ANTHROPIC_API_KEY from a local .env file, if present
 
-MODEL = "claude-sonnet-4-5"  # swap for whatever model your key has access to
+# Chosen by the generator comparison in grounded-answer-judge (Phase 5): same quality as
+# claude-sonnet-4-5 on its 30-question set, ~25% cheaper and ~40% faster.
+MODEL = "claude-sonnet-5"
 
 SYSTEM_PROMPT = """You answer questions using only the documentation excerpts you're given.
 

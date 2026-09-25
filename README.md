@@ -39,7 +39,9 @@ The takeaway isn't "fixed-size chunking is better" as a general rule, it's that 
 
 ## Sample Q&A
 
-Real captured output from `python -m src.rag header "How do I make a query parameter required?"` (header-aware chunking, `claude-sonnet-4-5`):
+The default answer model is `claude-sonnet-5`, picked by the [generator comparison in grounded-answer-judge](https://github.com/DaleShockley/grounded-answer-judge/blob/main/results/phase5_report.md): same quality as `claude-sonnet-4-5` on its 30 questions, about 25% cheaper and 40% faster. Pass `model=` to `answer_question()` to use another.
+
+Real captured output from `python -m src.rag header "How do I make a query parameter required?"` (header-aware chunking, captured with the earlier default, `claude-sonnet-4-5`):
 
 ````
 > How do I make a query parameter required?
