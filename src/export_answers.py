@@ -58,6 +58,10 @@ def export(questions: list[dict], store: VectorStore, strategy: str, model: str)
                 ],
                 "generator_model": model,
                 "chunking": strategy,
+                "stop_reason": result["stop_reason"],
+                "input_tokens": result["input_tokens"],
+                "output_tokens": result["output_tokens"],
+                "latency_s": result["latency_s"],
             }
         )
         print(f"  {q['id']}: {q['question'][:60]}")

@@ -17,7 +17,11 @@ class _FakeStore:
 
 
 def _text_response(text):
-    return SimpleNamespace(content=[SimpleNamespace(type="text", text=text)])
+    return SimpleNamespace(
+        content=[SimpleNamespace(type="thinking", thinking=""), SimpleNamespace(type="text", text=text)],
+        stop_reason="end_turn",
+        usage=SimpleNamespace(input_tokens=900, output_tokens=120),
+    )
 
 
 @patch("src.rag.anthropic.Anthropic")
@@ -39,8 +43,10 @@ def test_answer_question_returns_grounded_answer_and_sources(mock_anthropic_cls)
 
     result = answer_question("How do I make a query parameter required?", store)
 
-    assert "no default value" in result["answer"]
+    assert "no default value" in result["answer"]  # thinking block ignored, only text kept
     assert result["sources"] == ["query-params.md"]
+    assert (result["stop_reason"], result["input_tokens"], result["output_tokens"]) == ("end_turn", 900, 120)
+    assert result["latency_s"] >= 0
 
 
 @patch("src.rag.anthropic.Anthropic")

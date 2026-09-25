@@ -2,6 +2,8 @@
 grounded in them, with citations back to the source doc.
 """
 
+import time
+
 import anthropic
 from dotenv import load_dotenv
 
@@ -34,9 +36,11 @@ def answer_question(
     )
 
     client = anthropic.Anthropic()
+    started = time.perf_counter()
     response = client.messages.create(
         model=model,
-        max_tokens=1024,
+        # Roomy on purpose: newer models think before answering, and thinking counts toward this cap.
+        max_tokens=8192,
         system=SYSTEM_PROMPT,
         messages=[
             {
@@ -46,10 +50,20 @@ def answer_question(
         ],
     )
 
+    latency = time.perf_counter() - started
+
     answer_text = "".join(block.text for block in response.content if block.type == "text")
     sources = sorted({hit["metadata"].get("doc", "unknown") for hit in hits})
 
-    return {"answer": answer_text, "sources": sources, "hits": hits}
+    return {
+        "answer": answer_text,
+        "sources": sources,
+        "hits": hits,
+        "stop_reason": response.stop_reason,
+        "input_tokens": response.usage.input_tokens,
+        "output_tokens": response.usage.output_tokens,
+        "latency_s": round(latency, 2),
+    }
 
 
 if __name__ == "__main__":
